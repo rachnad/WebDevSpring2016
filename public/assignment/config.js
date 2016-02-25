@@ -3,23 +3,26 @@
  */
 (function(){
     angular
-        .module("WhiteBoardApp", ["ngRoute"])
+        .module("FormBuilderApp")
         .config(function($routeProvider){
             $routeProvider
-                .when("/", {
-                    templateUrl: "home.html"
+                .when("/home", {
+                    templateUrl: "/assignment/views/home/home.view.html"
                 })
                 .when("/profile", {
-                    templateUrl: "views/user/profile.view.html"
+                    templateUrl: "/assignment/views/users/profile.view.html"
                 })
                 .when("/admin", {
-                    templateUrl: "views/user/admin.view.html"
+                    templateUrl: "/assignment/views/admin/admin.view.html"
                 })
                 .when("/login", {
-                    templateUrl: "views/user/login.view.html"
+                    templateUrl: "/assignment/views/users/login.view.html"
                 })
                 .when("/register", {
-                    templateUrl: "views/user/register.view.html"
+                    templateUrl: "/assignment/views/users/register.view.html"
+                })
+                .when("/forms", {
+                    templateUrl: "/assignment/views/forms/forms.view.html"
                 })
                 .otherwise({
                     redirectTo: "/"

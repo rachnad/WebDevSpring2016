@@ -3,7 +3,7 @@
  */
 (function(){
     angular
-        .module("FormMakerApp")
+        .module("FormBuilderApp")
         .controller("SidebarController", SidebarController);
 
     function SidebarController($location, $scope, UserService) {
