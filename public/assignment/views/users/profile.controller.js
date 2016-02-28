@@ -25,15 +25,6 @@
             UserService.setCurrentUser(updateUser);
 
             $scope.currentUser = updateUser;
-
         }
-
-
-
-
     }
-
-
-
-
 })();
