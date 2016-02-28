@@ -4,9 +4,9 @@
 (function(){
     angular
         .module("FormBuilderApp")
-        .controller("HeaderController", HeaderController);
+        .controller("HeaderController", headerController);
 
-    function HeaderController($location, $scope, UserService) {
+    function headerController($location, $scope) {
         $scope.$location = $location;
 
     }

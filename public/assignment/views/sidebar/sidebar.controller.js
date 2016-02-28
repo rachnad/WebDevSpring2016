@@ -4,9 +4,9 @@
 (function(){
     angular
         .module("FormBuilderApp")
-        .controller("SidebarController", SidebarController);
+        .controller("SidebarController", sidebarController);
 
-    function SidebarController($location, $scope, UserService) {
+    function sidebarController($location, $scope) {
         $scope.$location = $location;
 
     }

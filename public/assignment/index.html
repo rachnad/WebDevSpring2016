@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" ng-app="FormBuilderApp">
+<html lang="en" ng-app="FormBuilderApp" ng-controller="MainController">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,14 +23,18 @@
     <script src="config.js"></script>
 
     <script src="/assignment/views/main/maincontroller.js"></script>
-    <script src="/assignment/views/header/header.controller.js"></script>
-    <script src="/assignment/views/sidebar/sidebar.controller.js"></script>
+    <script src="/assignment/views/home/home.controller.js"></script>
+    <script src="/assignment/views/users/register.controller.js"></script>
+    <script src="/assignment/views/users/login.controller.js"></script>
+    <script src="/assignment/views/users/profile.controller.js"></script>
+    <script src="/assignment/services/user.service.client.js"></script>
+
 
 
 </head>
 
 <body>
-      <div ng-controller="MainController">
+      <div>
           <div ng-include="'views/header/header.view.html'"></div>
           <div ng-include="'views/sidebar/sidebar.view.html'"></div>
 
