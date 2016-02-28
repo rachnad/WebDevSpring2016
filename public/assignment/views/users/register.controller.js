@@ -11,15 +11,15 @@
         $rootScope.register = register;
 
 
-
-
-
         function register(user) {
 
+                $rootScope.currentUser = user;
 
                 UserService
                     .createUser(user,function() {
                             $location.path("/profile")});
+
+                UserService.currentUser = user;
 
             }
         }
