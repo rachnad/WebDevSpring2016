@@ -49,12 +49,12 @@
                         </td>
                         <td>
                             <span ng-click="addForm(form)" class="glyphicon glyphicon-plus" aria-hidden="false"></span>
-                            <span ng-click="updateForm(form)" class="glyphicon glyphicon-pencil" aria-hidden="false"></span>
+                            <span ng-click="updateForm(form)" class="glyphicon glyphicon-ok" aria-hidden="false"></span>
                         </td>
                     </tr>
                     <tr ng-class="{selected: $index == selectedFormIndex}" ng-repeat="form in forms">
                         <td>{{form.title}}</td>
-                        <td class="text-right">
+                        <td class="btn-group">
                             <button ng-click="deleteForm($index)" class="glyphicon glyphicon-remove" aria-hidden="false"></button>
                             <button ng-click="selectForm($index)" class="glyphicon glyphicon-pencil" aria-hidden="false"></button>
                         </td>

@@ -5,16 +5,28 @@
     "use strict";
     angular
         .module("FormBuilderApp")
-        .controller("HeaderController", headerController);
+        .controller("HeaderController", HeaderController);
 
-    function headerController($location, $scope, $rootScope) {
+    function HeaderController($location, $scope, $rootScope, UserService) {
         $scope.$location = $location;
+        $scope.user = $rootScope.currentUser;
+
         $scope.logout = logout;
-        $scope.user = $rootScope.user
+
+
+        function logout(){
+            $scope.currentUser = null;
+            $rootScope.currentUser=null;
+        }
+
+        function isAdmin() {
+            var user = UserService.getCurrentUser();
+            return (user != null && user.roles.indexOf("admin") != -1);
+        }
 
     }
 
-    function logout(user){
-        $rootScope.user=null;
-    }
+
+
+
 })();

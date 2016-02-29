@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="FormBuilderApp">
-<script src="sidebar.controller.js"></script>
+<html lang="en">
+
 <body>
-<div class="col-sm-3 col-md-2 sidebar">
+<div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarController">
 
     <ul class="nav nav-sidebar">
         <li ng-class="{'active' : $location.url().indexOf('home') > 0}"><a href="#/home">Home</a></li>
         <li ng-class="{'active' : $location.url().indexOf('profile') > 0}"><a href="#/profile">Profile</a></li>
-        <li ng-class="{'active' : $location.url().indexOf('admin') > 0}"><a href="#/admin">Admin</a></li>
+        <li ng-class="{'active' : $location.url().indexOf('admin') > 0}"><a ng-show="isAdmin()" href="#/admin">Admin</a></li>
         <li ng-class="{'active' : $location.url().indexOf('forms') > 0}"><a href="#/forms">Forms</a></li>
     </ul>
 

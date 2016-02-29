@@ -4,10 +4,16 @@
 (function(){
     angular
         .module("FormBuilderApp")
-        .controller("SidebarController", sidebarController);
+        .controller("SidebarController", SidebarController);
 
-    function sidebarController($location, $scope) {
+    function SidebarController($location, $scope, UserService) {
         $scope.$location = $location;
 
+        $scope.isAdmin = isAdmin;
+
+        function isAdmin() {
+            var user = UserService.getCurrentUser();
+            return (user != null && user.roles.indexOf("admin") != -1);
+        }
     }
 })();
