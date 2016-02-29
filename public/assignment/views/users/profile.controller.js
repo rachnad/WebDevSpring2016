@@ -23,10 +23,10 @@
                 password: $scope.password
             }
 
-            UserService.setCurrentUser(updateUser);
-
-
-            $scope.currentUser = updateUser;
+            UserService.updateUser($rootScope.currentUser._id, $rootScope.currentUser,
+                function(response) {
+                    $rootScope.currentUser=response;
+                });
         }
     }
 })();
