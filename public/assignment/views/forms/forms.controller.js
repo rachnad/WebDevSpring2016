@@ -34,7 +34,7 @@
         function updateForm(formname) {
             console.log(formname);
             FormService.updateForm(formname._id, formname, function (response) {
-                FormService.findAllFormsForUser(formname.userId, function (response) {
+                FormService.findAllFormsForUser($rootScope.user._id, function (response) {
                     $scope.forms = response;
                 });
             });
