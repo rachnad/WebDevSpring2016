@@ -15,36 +15,15 @@
         $scope.forms = FormService.forms;
 
 
-        // Execute init to fetch forms if user valid
-        if (user) {
-            init();
-        } else {
-            console.log('Login to use.');
-        }
-
-        /*
-         * This function loads up the forms to the view
-         */
-        function init() {
-            // Fetch all the current forms available from the user
-            FormService
-                .findAllFormsForUser(user._id, function(forms) {
-                    $scope.forms = forms;
-
-                });
-        }
-
-        console.log($rootScope.forms);
-
         function addForm(formname) {
+            console.log(formname);
 
             var form = {
-                title: formname
+                title: formname.title
             };
-            console.log(form);
-
             FormService
                 .createForm(user._id, form, function(form) {
+                    console.log(form.title);
                     FormService
                         .findAllFormsForUser(user._id, function(forms) {
                             $scope.forms = forms;
@@ -52,16 +31,32 @@
                 });
         }
 
-        function updateForm(form) {
+        function updateForm(formname) {
+            console.log(formname);
+            FormService.updateForm(formname._id, formname, function (response) {
+                FormService.findAllFormsForUser(formname.userId, function (response) {
+                    $scope.forms = response;
+                });
+            });
+            $scope.form={};
+        }
+
+        function deleteForm(index) {
+            FormService.deleteFormById($scope.forms[index]._id, function (response) {
+
+            });
+            $scope.form={};
 
         }
 
-        function deleteForm(form) {
+        function selectForm(index) {
+            $scope.selectedIndex = index;
 
-        }
-
-        function selectForm(form) {
-
+            $scope.form = {
+                "_id": $scope.forms[index]._id,
+                "userId": $scope.forms[index].userId,
+                "title": $scope.forms[index].title
+            };
         }
 
     }

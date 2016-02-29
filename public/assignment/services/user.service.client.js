@@ -75,7 +75,10 @@
             var user = {
                 _id: user.id,
                 username: user.username,
-                password: user.password
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email
             }
             model.users.push(user);
             callback(user);

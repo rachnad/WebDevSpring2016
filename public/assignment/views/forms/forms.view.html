@@ -43,7 +43,7 @@
                     <tr>
                         <td><form class="form-inline">
                             <div class="form-group">
-                                <input ng-model="form" type="text" class="form-control" id="inputName" placeholder="name">
+                                <input ng-model="form.title" type="text" class="form-control" id="inputName" placeholder="name">
                             </div>
                         </form>
                         </td>
@@ -52,7 +52,7 @@
                             <span ng-click="updateForm(form)" class="glyphicon glyphicon-pencil" aria-hidden="false"></span>
                         </td>
                     </tr>
-                    <tr ng-class="{ selected: form._id === selectedFormId }" ng-repeat="form in forms">
+                    <tr ng-class="{selected: $index == selectedFormIndex}" ng-repeat="form in forms">
                         <td>{{form.title}}</td>
                         <td class="text-right">
                             <button ng-click="deleteForm($index)" class="glyphicon glyphicon-remove" aria-hidden="false"></button>
