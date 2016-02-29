@@ -9,31 +9,27 @@
 
     function FormService($rootScope) {
         var currentUser;
+        $rootScope.currentForms;
 
         var model = {
-            forms: []
+            forms: [
+                {"_id": "000", "title": "Contacts", "userId": 123},
+                {"_id": "010", "title": "ToDo",     "userId": 123},
+                {"_id": "020", "title": "CDs",      "userId": 234},
+            ]
             ,
-            findUserByCredentials: findUserByCredentials,
-            findAllUsers: findAllUsers,
-            createUser: createUser,
-            deleteUserById: deleteUserById,
-            updateUser: updateUser,
-            setCurrentUser: setCurrentUser,
-            getCurrentUser: getCurrentUser
+            findAllFormsForUser: findAllFormsForUser,
+            createForm: createFormForUser,
+            deleteFormById: deleteFormById,
+            updateForm: updateFormById,
+            setCurrentForms: setCurrentForms
         };
         return model;
 
-        function findUserByCredentials(username, password, callback) {
-            var userIndex;
-            for (userIndex in model.users) {
-                if (model.users[userIndex].username === username
-                    && model.users[userIndex].password === password) {
-                    //return model.users[userIndex];
-                    callback(model.users[userIndex])
-                }
-            }
-            callback(null); // don't return the callback, execute it
-        }
+        function setCurrentForms(forms) {
+            $rootScope.currentForms = forms;
+        };
+
 
         function findAllFormsForUser(userId, callback) {
             for (var userIndex in model.forms) {
@@ -48,6 +44,7 @@
             var form_id = (new Date).getTime();
             var newForm = {
                 _id: form_id,
+                title: form.title,
                 userId: userId
             }
             model.forms.push(newForm);
@@ -63,16 +60,14 @@
             }
         }
 
-        function updateUser(userId, user, callback) {
-            var userIndex;
-            for (userIndex in model.users) {
-                if (model.users[userIndex]._id === userId) {
-                    model.users[userIndex].firstName = user.firstName;
-                    model.users[userIndex].lastName = user.lastName;
-                    model.users[userIndex].username = user.username;
-                    model.users[userIndex].password = user.password;
-                    model.users[userIndex].roles= user.roles;
-                    callback(model.users[userIndex])
+        function updateFormById(formId, newForm, callback) {
+            var formIndex;
+            for (formIndex in model.forms) {
+                if (model.forms[formIndex]._id === formId) {
+                    model.forms[formIndex].title = newForm.title;
+                    model.forms[formIndex].userId = newForm.userId;
+
+                    callback(model.forms[formIndex])
                 }
             }
         }
