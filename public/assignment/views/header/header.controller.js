@@ -8,6 +8,11 @@
 
     function headerController($location, $scope) {
         $scope.$location = $location;
+        $scope.logout = logout;
 
+    }
+
+    function logout(user){
+        $rootScope.user=null;
     }
 })();
