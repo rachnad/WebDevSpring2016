@@ -44,12 +44,14 @@
                     <li ng-show="currentUser" ng-class="{'active' : $location.url().indexOf('profile') > 0}"><a href="#/profile">Username</a></li>
                     <li ng-show="currentUser" ng-class="{'active' : $location.url().indexOf('logout') > 0}"><a ng-click="logout()" href="#/home">Logout</a></li>
                     <li ng-class="{'active' : $location.url().indexOf('concerts') > 0}"><a href="views/concerts/concerts.view.html">Search</a></li>
+                    <li ng-class="{'active' : $location.url().indexOf('about') > 0}"><a href="views/about/about.html">About</a></li>
+
                 </ul>
             </div>
         </div>
     </nav>
 
-    <img src="../images/concert.jpg" class = "bg" style="width:1200px;height:500px";>
+    <img src="/../images/concert.jpg" class = "bg" style="width:1200px;height:500px";>
     <h1>Welcome to the Concert Tracking App!</h1>
     <p>Listen to all of your favorite artists live! Stay up to date with all tour dates.
     Begin by Logging in or Registering a new Account today!</p>
