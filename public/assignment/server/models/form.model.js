@@ -1,133 +1,87 @@
 /**
  * Created by rachanadeshmukh on 3/15/16.
  */
+var mock = require("./form.mock.json");
+
+// load q promise library
 var q = require("q");
 
 // pass db and mongoose reference to model
-module.exports = function(db, mongoose) {
+module.exports = function(app) {
 
-    // load movie schema from movie model
-    var MovieSchema = require("./movie.schema.server.js")(mongoose);
+    // load user schema
+    //var UserSchema = require("./user.schema.server.js")(mongoose);
 
-    // create movie from schema
-    var Movie  = mongoose.model("Movie", MovieSchema);
+    // create user model from schema
+    //var UserModel = mongoose.model('User', UserSchema);
 
-    var movies = [];
     var api = {
-        findMovieByImdbID: findMovieByImdbID,
-        findMoviesByImdbIDs: findMoviesByImdbIDs,
-        createMovie: createMovie,
-        userLikesMovie: userLikesMovie
+        findFormByCredentials: findFormByCredentials,
+        findFormByTitle: findFormByTitle,
+        findFormById: findFormById,
+        createForm: createForm,
+        findAll: findAll,
+        updateForm: updateForm,
+        deleteForm: deleteForm,
     };
     return api;
 
-    function userLikesMovie (userId, movie) {
-
-        var deferred = q.defer();
-
-        // find the movie by imdb ID
-        Movie.findOne({imdbID: movie.imdbID},
-
-            function (err, doc) {
-
-                // reject promise if error
-                if (err) {
-                    deferred.reject(err);
-                }
-
-                // if there's a movie
-                if (doc) {
-                    // add user to likes
-                    doc.likes.push (userId);
-                    // save changes
-                    doc.save(function(err, doc){
-                        if (err) {
-                            deferred.reject(err);
-                        } else {
-                            deferred.resolve(doc);
-                        }
-                    });
-                } else {
-                    // if there's no movie
-                    // create a new instance
-                    movie = new Movie({
-                        imdbID: movie.imdbID,
-                        title: movie.Title,
-                        poster: movie.Poster,
-                        likes: []
-                    });
-                    // add user to likes
-                    movie.likes.push (userId);
-                    // save new instance
-                    movie.save(function(err, doc) {
-                        if (err) {
-                            deferred.reject(err);
-                        } else {
-                            deferred.resolve(doc);
-                        }
-                    });
-                }
-            });
-
-        return deferred.promise;
+    function createForm(form) {
+        form._id = "ID_" + (new Date()).getTime();
+        mock.push(form);
+        return form;
     }
 
-    function findMoviesByImdbIDs (imdbIDs) {
-        var movies = [];
-        for (var id in imdbIDs) {
-            var movie = findMovieByImdbID (imdbIDs[id]);
-            if (movie) {
-                movies.push({
-                    _id: movie._id,
-                    title: movie.title,
-                    poster: movie.poster,
-                    imdbID: movie.imdbID
-                });
+
+    function findFormById(userId) {
+        for(var u in mock) {
+            if( mock[u]._id === userId ) {
+                return mock[u];
             }
         }
-        return movies;
+        return null;
     }
 
-    function createMovie(movie) {
-
-        // create instance of movie
-        var movie = new Movie({
-            imdbID: movie.imdbID,
-            poster: movie.Poster,
-            title: movie.Title,
-            likes: []
-        });
-
-        var deferred = q.defer();
-
-        // save movie to database
-        movie.save(function (err, doc) {
-
-            if (err) {
-                // reject promise if error
-                defferred.reject(err)
-            } else {
-                // resolve promise
-                deferred.resolve(doc);
+    function findFormByTitle(formTitle) {
+        for(var u in mock) {
+            if( mock[u].title === formTitle) {
+                return mock[u];
             }
-
-        });
-
-        return deferred.promise;
+        }
+        return null;
     }
 
-    function findMovieByImdbID(imdbID) {
+    function findAll() {
+        return mock;
 
-        var deferred = q.defer();
+    }
 
-        Movie.findById(imdbID, function (err, doc) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(doc);
+    function updateForm(formId, form) {
+        for(var u in mock) {
+            if( mock[u]._id === formId) {
+                mock[u].title = form.title;
+                mock[u].userId = form.userId;
+                mock[u].fields = form.fields;
             }
-        });
-
-        return deferred.promise;
+        }
     }
+
+    function deleteForm(formId) {
+        for (var u in mock) {
+            if (mock[u]._id === formId) {
+                mock.pop(mock[u]);
+            }
+        }
+    }
+
+    function findFormByCredentials(credentials) {
+        for (var u in mock) {
+            if ((mock[u].username === credentials.username) &&
+                (mock[u].password === credentials.password)) {
+                return mock[u];
+            }
+        }
+        return null;
+    }
+
 }
