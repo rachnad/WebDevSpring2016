@@ -36,8 +36,8 @@ module.exports = function(app, model) {
     }
 
     function getAlice(req, res) {
-        var alice = req.params.firstName;
-        var wonderland = req.params.lastName
+        var alice = req.params.username;
+        var wonderland = req.params.password
         var user = model.findUserById(id);
         res.json(user);
     }
