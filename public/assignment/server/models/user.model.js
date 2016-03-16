@@ -18,11 +18,11 @@ module.exports = function(app) {
     var api = {
         findUserByCredentials: findUserByCredentials,
         findUserByUsername: findUserByUsername,
+        findUserById: findUserById,
         createUser: createUser,
         findAll: findAll,
         updateUser: updateUser,
         deleteUser: deleteUser,
-        findUserById: findUserById,
         findUsersByIds: findUsersByIds,
         userLikesMovie: userLikesMovie
     };
@@ -35,8 +35,22 @@ module.exports = function(app) {
     }
 
 
-    function findUserByUsername() {
+    function findUserById(userId) {
+        for(var u in mock) {
+            if( mock[u]._id === userId ) {
+                return mock[u];
+                }
+            }
+        return null;
+    }
 
+    function findUserByUsername(userName) {
+        for(var u in mock) {
+            if( mock[u].username === userName) {
+                return mock[u];
+            }
+        }
+        return null;
     }
 
     function findAll() {
@@ -44,12 +58,23 @@ module.exports = function(app) {
 
     }
 
-    function updateUser() {
-
+    function updateUser(userId, user) {
+        for(var u in mock) {
+            if( mock[u]._id === userId) {
+                mock[u].username = user.username;
+                mock[u].firstName = user.firstName;
+                mock[u].lastname = user.lastName;
+                mock[u].password = user.password;
+            }
+        }
     }
 
-    function deleteUser() {
-
+    function deleteUser(userId) {
+        for(var u in mock) {
+            if( mock[u]._id === userId) {
+                mock.pop(mock[u]);
+            }
+        }
     }
     // add movie to user likes
     function userLikesMovie (userId, movie) {
