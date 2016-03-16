@@ -6,11 +6,11 @@
  */
 
 module.exports = function(app, model) {
-    app.post("/api/assignment/user/:userId/form", createForm);
-    app.get("/api/assignment/user/:userId/form", getForms);
-    app.get("/api/assignment/form/:formId", getFormbyId);
-    app.put("/api/assignment/form/:formId", updateForm);
-    app.delete("/api/assignment/form/:formId", deleteForm);
+    app.post("/api/assignment/form/:formId/field", createFormbyFieldId);
+    app.get("/api/assignment/form/:formId/field", getFormsbyFieldId);
+    app.get("/api/assignment/form/:formId/field/:fieldId", getFormbyFieldandFormId);
+    app.put("/api/assignment/form/:formId/field/:fieldId", updateForm);
+    app.delete("/api/assignment/form/:formId/field/:fieldId", deleteForm);
 
 
     var model = model;

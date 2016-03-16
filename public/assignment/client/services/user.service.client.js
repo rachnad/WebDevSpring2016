@@ -8,34 +8,13 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService($rootScope) {
+    function UserService($rootScope, $http) {
         var currentUser;
 
-        var model = {
-            users: [
-                {
-                    "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
-                    "username": "alice", "password": "alice", "roles": ["student"]
-                },
-                {
-                    "_id": 234, "firstName": "Bob", "lastName": "Hope",
-                    "username": "bob", "password": "bob", "roles": ["admin"]
-                },
-                {
-                    "_id": 345, "firstName": "Charlie", "lastName": "Brown",
-                    "username": "charlie", "password": "charlie", "roles": ["faculty"]
-                },
-                {
-                    "_id": 456, "firstName": "Dan", "lastName": "Craig",
-                    "username": "dan", "password": "dan", "roles": ["faculty", "admin"]
-                },
-                {
-                    "_id": 567, "firstName": "Edward", "lastName": "Norton",
-                    "username": "ed", "password": "ed", "roles": ["student"]
-                }
-            ],
+        var api =  {
 
             findUserByCredentials: findUserByCredentials,
+            findUserByUsername: findUserbyUsername,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
@@ -43,7 +22,7 @@
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser
         };
-        return model;
+        return api;
 
         function getCurrentUser() {
             return $rootScope.currentUser;
@@ -53,9 +32,17 @@
             $rootScope.currentUser = user;
         }
 
+        function findUserbyUsername(username) {
+            return $http.get("/api/assignment/user?username="+$rootScope.currentUser.username);
+
+        }
 
 
-        function findUserByCredentials(username, password, callback) {
+        function findUserByCredentials(username, password) {
+            return $http.get("/api/assignment/user?username="+$rootScope.currentUser.username
+                +"&password="+$rootScope.currentUser.password);
+
+            /*
             var userIndex;
             for (userIndex in model.users) {
                 if (model.users[userIndex].username === username
@@ -65,13 +52,18 @@
                 }
             }
             callback(null); // don't return the callback, execute it
+            */
         }
 
-        function findAllUsers(callback) {
-            callback(model.users);
+        function findAllUsers() {
+            return $http.get("/api/assignment/user");
         }
 
-        function createUser(user, callback) {
+        function createUser(user) {
+
+            return $http.post("/api/assignment/user/", user);
+
+            /*
             var _id = (new Date).getTime();
             var user = {
                 _id: user.id,
@@ -83,9 +75,12 @@
             }
             model.users.push(user);
             callback(user);
+            */
         }
 
         function deleteUserById(userId) {
+            return $http.delete("/api/assignment/user/", userId);
+            /*
             var userIndex;
             for (userIndex in model.users) {
                 if (model.users[userIndex]._id === userId) {
@@ -94,9 +89,13 @@
                     callback(model.users[userIndex])
                 }
             }
+            */
         }
 
-        function updateUser(userId, user, callback) {
+        function updateUser(userId, user) {
+            return $http.put("/api/assignment/user/"+userId, user);
+
+            /*
             var userIndex;
             for (userIndex in model.users) {
                 if (model.users[userIndex]._id === userId) {
@@ -108,6 +107,8 @@
                     callback(model.users[userIndex])
                 }
             }
+             */
         }
+
     }
 })();
