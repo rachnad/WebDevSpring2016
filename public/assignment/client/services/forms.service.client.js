@@ -12,36 +12,36 @@
         var currentUser;
         $rootScope.currentForms;
 
-        var model = {
-            forms: [
-                {"_id": "000", "title": "Contacts", "userId": 123},
-                {"_id": "010", "title": "ToDo",     "userId": 123},
-                {"_id": "020", "title": "CDs",      "userId": 234},
-            ]
-            ,
+        var api = {
             findAllFormsForUser: findAllFormsForUser,
-            createForm: createFormForUser,
+            createFormForUser: createFormForUser,
             deleteFormById: deleteFormById,
             updateForm: updateFormById,
             setCurrentForms: setCurrentForms
         };
-        return model;
+        return api;
 
         function setCurrentForms(forms) {
             $rootScope.currentForms = forms;
         };
 
 
-        function findAllFormsForUser(userId, callback) {
+        function findAllFormsForUser(userId) {
+            return $http.get("/api/assignment/user/" + userId + "/form");
+
+            /*
             for (var userIndex in model.forms) {
                 if (model.forms[userIndex]._id === userId) {
                     callback(model.forms[userIndex]);
                 }
             }
             return [];
+            */
         }
 
-        function createFormForUser(userId, form, callback) {
+        function createFormForUser(userId, form) {
+            return $http.post("/api/assignment/user/" + userId + "/form", form);
+            /*
             var form_id = (new Date).getTime();
             var newForm = {
                 _id: form_id,
@@ -50,18 +50,26 @@
             }
             model.forms.push(newForm);
             callback(newForm);
+            */
         }
 
-        function deleteFormById(formId, callback) {
+        function deleteFormById(formId) {
+            return $http.delete("/api/assignment/form/" + formId);
+            /*
             for (var formIndex in model.forms) {
                 if (model.forms[formIndex]._id === formId) {
                     model.forms.splice(formIndex, 1);
                     callback(model.users[formIndex])
                 }
             }
+            */
         }
 
-        function updateFormById(formId, newForm, callback) {
+        function updateFormById(formId, newForm) {
+
+            return $http.put("/api/assignment/form/" + formId, newForm);
+
+            /*
             var formIndex;
             for (formIndex in model.forms) {
                 if (model.forms[formIndex]._id === formId) {
@@ -71,6 +79,7 @@
                     callback(model.forms[formIndex])
                 }
             }
+            */
         }
     }
 })();
