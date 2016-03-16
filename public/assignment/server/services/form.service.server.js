@@ -1,9 +1,7 @@
 /**
  * Created by rachanadeshmukh on 3/15/16.
  */
-/**
- * Created by rachanadeshmukh on 3/15/16.
- */
+
 
 module.exports = function(app, model) {
     app.post("/api/assignment/user/:userId/form", createForm);
@@ -51,4 +49,4 @@ module.exports = function(app, model) {
         var formid = req.params.formId;
         res.json(model.deleteFormById(formid));
     }
-}
+};

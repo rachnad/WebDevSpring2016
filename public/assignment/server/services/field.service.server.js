@@ -51,4 +51,4 @@ module.exports = function(app, model) {
         var formid = req.params.formId;
         res.json(model.deleteFormById(formid));
     }
-}
+};
